@@ -1,10 +1,10 @@
 # Site settings
 title: 不忘初心、不愿平凡
-SEOTitle: Lance的博客 | BY LY
+SEOTitle: Lance的博客 | LY
 header-img: img/post-bg-desk.jpg
 email: liuyuabnn@gmail.com
 description: "Life is not only in front of you, but also poetry and distant fields."
-keyword: "BY, BY LY, Lance的博客, liuyuabnn, 刘源, Android, Python, Java"
+keyword: "LY, Lance的博客, liuyuabnn, 刘源, Android, Python, Java"
 url: "https://liuyuabnn.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/liuyuabnn/liuyuabnn.github.io.git" # you code repository
@@ -21,7 +21,7 @@ RSS: false
 # weibo_username:     qiubaiying
 zhihu_username:     lance_ly
 github_username:    liuyuabnn
-facebook_username:  刘源
+facebook_username:  100020114136539
 jianshu_username:   e1fc9e2935e8
 #twitter_username:   qiubaiying
 
