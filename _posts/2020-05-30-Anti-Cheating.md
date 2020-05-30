@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      互联网流量作弊指南
+title:      互联网流量作弊初探
 subtitle:   大家都知道的广告作弊的那些事儿
-date:       2019-08-08
+date:       2020-05-30
 author:     Lance
 header-img: img/post-bg-hacker.jpg
 catalog: true
@@ -18,14 +18,18 @@ tags:
 
 * 在正式介绍广告作弊之前，我们先来快速过一下广告投放的全过程，看看作弊都可能存在于哪些环节:
 
-<div align="center"> <img src="http://liuyuabnn.github.io/img/toufang.jpeg"/> </div><br>
+<div align="center"> <img src="http://liuyuabnn.github.io/img/toufang.jpg"/> </div><br>
 
 * 广告主与媒体或代理商签订广告合同，约定结算方式并提供广告创意。主要结算方式有：CPM,CPC,CPA。
+
 * 广告市场中往往有第三方统计SDK来监测广告效果，保障广告主的投入产出比。第三方会在广告展示/点击、激活环节添加检测代码/SDK，随着广告一齐到达用户端，进行效果归因(Attribution)。
+
 * 媒体展示广告，用户看到广告创意并产生广告交互行为(展示、点击、下载和注册等)。在第三方代码的控制下，这些行为连带用户信息一齐被发送第三方进行统计。
 
 * 第三方将统计得到的数据报表交给广告主，广告主凭借这份数据与媒体按照指标进行结算。
+
 * 广告的逻辑和流程都挺透明公开的，似乎没有什么可以作弊的地方，究竟是哪里出了问题呢?在广告中，要想理清业务的脉络，跟着钱的流向走准没错。以CPM为例，广告主按照第三方提供的曝光数据与媒体进行结算，而第三方的数据来源于用户端接收到的广告展示，广告展示又是通过第三方的检测代码统计来的。从数据到展示，从展示到检测代码。只要检测代码认为广告确实被展示了一次，那么不管该用户是否真的见到了广告，广告主都要为此次曝光付费。所谓作弊，就是一个让代码说谎的手段。
+
 
 ## 谁去作弊？
 
@@ -66,7 +70,10 @@ tags:
 
 <div align="center"> <img src="http://liuyuabnn.github.io/img/cpm.jpg"/> </div><br>
 
->www.xxxxx.com/impCID=ad20&CPID=1321&CRID=20&OS=1&IDFA=70E0E6465B7B12C844C63EC681C7507C&OpenUDID=F1C7976BC455CB548BFC550EB7687F06&IP=10.26.78.45&UA=iPhone;%20CPU%20iPhone%20OS%206_1_2%20like%20Mac%20OS%20X)%20AppleWebKit/536.26%20(KHTML,%20like%20Gecko&TS=1198628984102
+>www.xxxxx.com/impCID=ad20&CPID=1321&CRID=20&OS=1&IDFA=70E0E6465B7B12C844C63EC681C7507C
+&OpenUDID=F1C7976BC455CB548BFC550EB7687F06&IP=10.26.78.45&UA=iPhone;%20CPU%20iPhone
+%20OS%206_1_2%20like%20Mac%20OS%20X)%20AppleWebKit/536.26%20(KHTML,%20like%20Gecko
+&TS=1198628984102
 >
 
 * 既然是个URL，严谨的大数据从业者一定会思考：直接在浏览器地址里输入这段代码，是不是也就在广告主那里记录了一个曝光呢?是的，这就是作弊刷量最朴素的哲学原理。这其实算不上什么武器，只是个玩具，我们借此来说明基础的CPM作弊原理，CPC也是一样一样的啊!另外，不论是服务器刷还是客户端刷，在点击环节都会有个破绽：正常用户在点击广告时，自然的点击分布与广告创意有关，而刷的点击要么较为集中，要么均匀散布，并不难以分辨。画个点击热力图，就一目了然了。
@@ -100,10 +107,10 @@ tags:
 * 国内：一般采用用户ID碰撞归因。即广告sdk只能监测到点击，下载，安装完成这些行为，并把产生这些行为时客户端的设备环境参数上报，等b被安装的App打开时，App内部集成的第三方统计平台会记录一次激活，并把这个激活的数据和之前广告sdk上报的参数做设备ID模糊匹配。当匹配上时，记录一次归因。
 
 * 海外：Referrer： 广告点击链接会经过n次重定向（n-1次为第三方数据平台），最终跳转的地址是Google play。例如：
->​https://play.google.com/store/apps/details? id=com.peitor.photoeditor&referrer=adjust_reftag%3Dc7oYKoR43NYC1%26utm_source%3DPhotoEditor2017_ocean_2%26utm_campaign%3Dch1006
+>​https://play.google.com/store/apps/details? id=com.peitor.photoeditor&
+referrer=adjust_reftag%3Dc7oYKoR43NYC1%26utm_source%3DPhotoEditor2017_ocean_2%26utm_campaign%3Dch1006
 
->
-    <receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
+	<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
         android:enabled="true"
         android:exported="true">
         <intent-filter>
@@ -116,11 +123,12 @@ tags:
 	* 自然量劫持
 	* 其他渠道归因劫持
 >
+	
 	dependencies {
         ...
         implementation 'com.android.installreferrer:installreferrer:1.1'
-    }
->
+    }	
+
 	ReferrerDetails response = referrerClient.getInstallReferrer();
     String referrerUrl = response.getInstallReferrer();
     long referrerClickTime = response.getReferrerClickTimestampSeconds();
