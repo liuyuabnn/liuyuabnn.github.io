@@ -125,13 +125,9 @@ referrer=adjust_reftag%3Dc7oYKoR43NYC1%26utm_source%3DPhotoEditor2017_ocean_2%26
 * 归因劫持：
 	* 自然量劫持
 	* 其他渠道归因劫持
->
-	
-	dependencies {
-        ...
-        implementation 'com.android.installreferrer:installreferrer:1.1'
-    }	
 
+>	implementation 'com.android.installreferrer:installreferrer:1.1'
+	
 	ReferrerDetails response = referrerClient.getInstallReferrer();
     String referrerUrl = response.getInstallReferrer();
     long referrerClickTime = response.getReferrerClickTimestampSeconds();
