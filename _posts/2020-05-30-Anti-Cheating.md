@@ -110,7 +110,8 @@ tags:
 * 国内：一般采用用户ID碰撞归因。即广告sdk只能监测到点击，下载，安装完成这些行为，并把产生这些行为时客户端的设备环境参数上报，等b被安装的App打开时，App内部集成的第三方统计平台会记录一次激活，并把这个激活的数据和之前广告sdk上报的参数做设备ID模糊匹配。当匹配上时，记录一次归因。
 
 * 海外：Referrer： 广告点击链接会经过n次重定向（n-1次为第三方数据平台），最终跳转的地址是Google play。例如：
->​https://play.google.com/store/apps/details? id=com.peitor.photoeditor&
+
+>	 https://play.google.com/store/apps/details? id=com.peitor.photoeditor&
 referrer=adjust_reftag%3Dc7oYKoR43NYC1%26utm_source%3DPhotoEditor2017_ocean_2%26utm_campaign%3Dch1006
 
 	<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"
